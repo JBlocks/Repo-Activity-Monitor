@@ -10,7 +10,17 @@ $baseDir = isset($argv[1]) ? $argv[1] : getcwd();
 $baseDir .= substr($baseDir, -1) == '/' ? '' : '/';
 $dataDir = isset($argv[2]) ? $argv[2] : getcwd();
 $dataDir .= substr($dataDir, -1) == '/' ? '' : '/';
-$modules = array('.', 'typo3/sysext/workspaces', 'typo3/sysext/extbase', 'typo3/sysext/fluid', 'typo3/sysext/dbal', 'typo3/sysext/version', 'typo3/sysext/linkvalidator');
+
+$modules = array(
+	'.',
+	'typo3/sysext/workspaces',
+	'typo3/sysext/extbase',
+	'typo3/sysext/fluid',
+	'typo3/sysext/dbal',
+	'typo3/sysext/version',
+	'typo3/sysext/linkvalidator'
+);
+
 $startdate = '2006-03-01';
 
 $generator = new StatGenerator($dataDir, $baseDir, $startdate);

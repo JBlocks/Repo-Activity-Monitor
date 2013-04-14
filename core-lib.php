@@ -136,7 +136,29 @@ class StatGenerator {
 	 * @return mixed
 	 */
 	protected function mapName($name) {
-		$names = array('cybercraft' => 'Jo Hasenau', 'etobi.de' => 'Tobias Liebig', 'xperseguers' => 'Xavier Perseguers', 'ohader' => 'Oliver Hader', 'francois' => 'Francois Suter', 'steffenk' => 'Steffen Kamper', 'psychomieze' => 'Susanne Moog', 'tolleiv' => 'Tolleiv Nietsch', 'jigal' => 'Jigal van Hemert', 'sgalinsk' => 'Stefan Galinski', 'lolli' => 'Christian Kuhn', 'sonne' => 'Sonja Scholz', 'baschny' => 'Ernesto Baschny', 'stan' => 'Stanislas Rolland', 'mbresch' => 'Marco Bresch', 'Tolleiv' => 'Tolleiv Nietsch', 'stephenking' => 'Steffen Gebert', 'Steffen Gebert and the T3UXW09 team' => 'Steffen Gebert', 'Benni Mack' => 'Benjamin Mack', 'nxpthx' => "Steffen Ritter", "Björn Pedersen" => "Bjoern Pedersen");
+		$names = array(
+			'cybercraft' => 'Jo Hasenau',
+			'etobi.de' => 'Tobias Liebig',
+			'xperseguers' => 'Xavier Perseguers',
+			'ohader' => 'Oliver Hader',
+			'francois' => 'Francois Suter',
+			'steffenk' => 'Steffen Kamper',
+			'psychomieze' => 'Susanne Moog',
+			'tolleiv' => 'Tolleiv Nietsch',
+			'jigal' => 'Jigal van Hemert',
+			'sgalinsk' => 'Stefan Galinski',
+			'lolli' => 'Christian Kuhn',
+			'sonne' => 'Sonja Scholz',
+			'baschny' => 'Ernesto Baschny',
+			'stan' => 'Stanislas Rolland',
+			'mbresch' => 'Marco Bresch',
+			'Tolleiv' => 'Tolleiv Nietsch',
+			'stephenking' => 'Steffen Gebert',
+			'Steffen Gebert and the T3UXW09 team' => 'Steffen Gebert',
+			'Benni Mack' => 'Benjamin Mack',
+			'nxpthx' => "Steffen Ritter",
+			"Björn Pedersen" => "Bjoern Pedersen"
+		);
 		$leName = isset($names[$name]) ? $names[$name] : $name;
 		return preg_replace('/,.*/', '', $leName);
 	}
