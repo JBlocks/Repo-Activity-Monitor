@@ -20,7 +20,7 @@ class TableFormatter {
 					table { margin: 20px; }
 					a { color:grey; text-decoration:none; font-size: 13px; }
 					a:hover { text-decoration:underline; }
-					#description { font-size:13px; padding:10px 30px; }
+					#description, #update { font-size:13px; padding:10px 30px; }
 					#footer { font-size:12px; padding:10px 30px; }
 					td { width:160px; border-top:1px solid grey; border-left: 1px solid white; padding: 1px 3px;white-space:nowrap; }
 				</style>
@@ -30,6 +30,9 @@ class TableFormatter {
 				Scoring is described in the related blog post
 					<a href="http://blog.tolleiv.de/2012/01/visualizing-ty…-core-activity/">on visualization of the TYPO3 core activity.</a>
 				The same numbers can also be found in the <a href="index.html">impact chart visualization</a>
+			</div>
+			<div id="update">
+				Last update: ' . date('Y-m-d h:i', time()) . '
 			</div>
 		';
 
