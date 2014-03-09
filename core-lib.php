@@ -36,9 +36,9 @@ class StatGenerator {
 		$now = strtotime("first day of this month");
 		do {
 			$index = strftime('%Y.%m', strtotime('-' . $i . ' months', $now));
-			#if (isset($persons[$index])) { // assume that all "older" data was in the store
-			#	break;
-			#}
+			if (isset($persons[$index])) { // assume that all "older" data was in the store
+				break;
+			}
 
 			$persons[$index] = array();
 			$count = 0;
