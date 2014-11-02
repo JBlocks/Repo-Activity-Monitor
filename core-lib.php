@@ -72,8 +72,8 @@ class StatGenerator {
 		$now = strtotime("first day of this month");
 		$time = strtotime($offset ? '-' . $offset . ' months' : 'now', $now);
 		$month = strftime('%B %Y', $time);
-		$begin = strtotime('first day of ' . $month);
-		$end = strtotime('last day of ' . $month);
+		$begin = strtotime('first day of ' . $month) - 24 * 60 * 60;
+		$end = strtotime('last day of ' . $month) +  24 * 60 * 60;
 		$cmd = 'git log --since="' . strftime('%Y-%m-%d', $begin) . '" ' . ($end > time() ? '' : '--until="' . strftime('%Y-%m-%d', $end) . '"') . ' --oneline' . "\n";
 		@exec($cmd, $commits);
 		return $commits;
