@@ -12,11 +12,39 @@
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="css/theme.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 
 </head>
 
 <body role="document">
+
+
+<!-- Modal -->
+<div class="modal fade" id="scoringModal" tabindex="-1" role="dialog" aria-labelledby="scoringModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="scoringModalLabel">Scoring</h4>
+			</div>
+			<div class="modal-body">
+				<ul>
+					<li>Submit a patch -> 10 pts.</li>
+					<li>Test a patch -> 3 pts.</li>
+					<li>Code review a patch -> 1 pt.</li>
+				</ul>
+				<div id="description">
+					Scoring is described in the related blog post <a href="http://blog.tolleiv.de/2012/01/visualizing-typo3-core-activity/">
+					on visualization of the TYPO3 core activity.</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,34 +63,23 @@
 				<li><a href="stat.html">Table based</a></li>
 				<li><a href="index.html">Impact Chart</a></li>
 			</ul>
+			<button type="button" class="btn btn-warning navbar-btn navbar-right" data-toggle="modal" data-target="#scoringModal">Scoring</button>
 		</div>
 		<!--/.nav-collapse -->
 	</div>
 </nav>
 
 <div class="container theme-showcase" role="main">
-	<div>
-		<div id="description">
-			Scoring is described in the related blog post
-			<a href="http://blog.tolleiv.de/2012/01/visualizing-typo3-core-activity/">on visualization of the TYPO3 core activity.</a>
-			<br />
-			The same numbers can also be found in the <a href="stat.html">table based overview</a>
-		</div>
-		<div id="info">
-			<div id="name2" class="hidden">
-				<div id="legend2">&nbsp;</div>
-				<div id="username2">legend</div>
-			</div>
-			<div id="placeholder">click on the graph for more details</div>
-		</div>
-		<br style="clear:all" />
+
+	<div id="update">
+		Last update: ###last_update###
 	</div>
-	<div id="chart"></div>
-	<img src="ajax-loader.gif" width="16" height="16" alt="Ajax Loader" id="loader">
-	<div id="footer"></div>
+
+	###table###
 
 </div>
 <!-- /container -->
+
 
 
 <!-- Bootstrap core JavaScript
@@ -70,8 +87,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/jquery-1.11.2.min.js" charset="utf-8"></script>
 <script src="js/bootstrap.min.js" charset="utf-8"></script>
-<script src="js/raphael.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/graph.js" type="text/javascript" charset="utf-8"></script>
 
 </body>
 </html>

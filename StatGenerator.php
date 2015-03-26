@@ -9,14 +9,14 @@ class StatGenerator {
 	protected $persons;
 	protected $commitCounts;
 
-	public function __construct($dataDir, $baseDir, $since) {
+	public function __construct($dataDir, $baseDir, $after) {
 		$this->dataDir = $dataDir;
 		$this->baseDir = $baseDir;
-		$this->maxMonths = $this->getMonthDiff($since);
+		$this->maxMonths = $this->getMonthDiff($after);
 	}
 
-	protected function getMonthDiff($since) {
-		$diff = date_diff(new DateTime($since), new DateTime());
+	protected function getMonthDiff($after) {
+		$diff = date_diff(new DateTime($after), new DateTime());
 		return $diff->format('%y') * 12 + $diff->format('%m');
 	}
 
@@ -44,7 +44,7 @@ class StatGenerator {
 			$count = 0;
 			foreach ($modules as $module) {
 				chdir($this->baseDir . $module);
-				$commits = $this->getCommitsForMonth($i);
+				$commits = $this->getCommitsForMonth(strtotime('-' . $i . ' months', $now));
 				$count += $this->buildStatForCommits($persons[$index], $commits);
 				unset($persons[$index]['']);
 				unset($persons[$index]['WWW']);
@@ -64,17 +64,22 @@ class StatGenerator {
 	/**
 	 * Get all commits (one per line) for the given month
 	 *
-	 * @param $offset
-	 * @return array|null
+	 * @int $timestamp A timestamp within the month
+	 * @return array
 	 */
-	protected function getCommitsForMonth($offset) {
+	protected function getCommitsForMonth($timestamp) {
+		if (strftime('%B %Y', $timestamp) == strftime('%B %Y', time())) {
+			$before = time();
+		} else {
+			$before = strtotime('last day of ' . strftime('%B %Y', $timestamp)) + 1;
+		}
+		$after = strtotime('first day of ' . strftime('%B %Y', $timestamp)) - 1;
+		return $this->getCommitsForTimeRange($after, $before, true);
+	}
+
+	protected function getCommitsForTimeRange($after, $before, $oneline = false) {
 		$commits = array();
-		$now = strtotime("first day of this month");
-		$time = strtotime($offset ? '-' . $offset . ' months' : 'now', $now);
-		$month = strftime('%B %Y', $time);
-		$begin = strtotime('first day of ' . $month) - 24 * 60 * 60;
-		$end = strtotime('last day of ' . $month) +  24 * 60 * 60;
-		$cmd = 'git log --since="' . strftime('%Y-%m-%d', $begin) . '" ' . ($end > time() ? '' : '--until="' . strftime('%Y-%m-%d', $end) . '"') . ' --oneline' . "\n";
+		$cmd = 'git log --after="' . strftime('%Y-%m-%d', $after) . '" --before="' . strftime('%Y-%m-%d', $before) . ($oneline ? '" --oneline' : '');
 		@exec($cmd, $commits);
 		return $commits;
 	}
@@ -106,11 +111,12 @@ class StatGenerator {
 	 * @param $persons
 	 */
 	protected function buildScoreForCommit($input, &$persons) {
+
 		$persons[$this->getAuthor($input)] += 10;
-		$this->processPersons('/Tested-by: ([^<]*)/', $input, function($name) use(&$persons) {
+		$this->processPersons('/Tested-by: ([^<]*)/', $input, function($name,$patch) use(&$persons) {
 			$persons[$name] += 3;
 		});
-		$this->processPersons('/Reviewed-by: ([^<]*)/', $input, function($name) use(&$persons) {
+		$this->processPersons('/Reviewed-by: ([^<]*)/', $input, function($name,$patch) use(&$persons) {
 			$persons[$name] += 1;
 		});
 	}
@@ -208,7 +214,7 @@ class StatGenerator {
 	protected function processPersons($regex, $input, $callback) {
 		$lines = $this->getMatchingLines($regex, $input);
 		foreach ($lines as $line) {
-			$callback($this->getName($regex, $line));
+			$callback($this->getName($regex, $line), $input[4]);
 		}
 	}
 
