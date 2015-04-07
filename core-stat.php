@@ -23,7 +23,6 @@ $startdate = '2006-01-01';
 $generator = new StatGenerator($dataDir, $baseDir, $startdate);
 
 list($persons, $commitCounts) = $generator->generateData($modules);
-print_r($commitCounts);
 
 $json = new JsonFormatter();
 file_put_contents($dataDir . 'json.php', $json->generate($persons, $commitCounts, $generator->getMaxMonths()));
