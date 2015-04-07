@@ -23,7 +23,6 @@
             usrnm = $("#username")[0],
             lgnd2 = $("#legend2")[0],
             usrnm2 = $("#username2")[0],
-            plchldr = $("#placeholder")[0],
 	    releases = [ [0,0], [1145592546, '4.0 release'], [1173160800, '4.1 release'],
 			[1211605200, '4.2 release'], [1259560800, '4.3 release'], 
 			[1277182800, '4.4 release'], [1296021600, '4.5 release'],
@@ -120,7 +119,6 @@
                         usrnm2.innerHTML = json.authors[i].n + " <em>(" + json.authors[i].c + " points)</em>";
                         lgnd2.style.backgroundColor = pathes[i].p.attr("fill");
                         nmhldr2.className = "";
-                        plchldr.className = "hidden";
                     };
                 })(i);
             }
