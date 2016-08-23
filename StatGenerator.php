@@ -8,6 +8,8 @@ class StatGenerator {
 
 	protected $persons;
 	protected $commitCounts;
+	
+	protected $excludeNames = ['Bamboo TYPO3com'];
 
 	public function __construct($dataDir, $baseDir, $after) {
 		$this->dataDir = $dataDir;
@@ -114,10 +116,14 @@ class StatGenerator {
 
 		$persons[$this->getAuthor($input)] += 10;
 		$this->processPersons('/Tested-by: ([^<]*)/', $input, function($name,$patch) use(&$persons) {
-			$persons[$name] += 3;
+			if (!in_array(trim($name), $this->excludeNames)) {
+				$persons[$name] += 3;
+			}
 		});
 		$this->processPersons('/Reviewed-by: ([^<]*)/', $input, function($name,$patch) use(&$persons) {
-			$persons[$name] += 1;
+			if (!in_array(trim($name), $this->excludeNames)) {
+				$persons[$name] += 1;
+			}
 		});
 	}
 
