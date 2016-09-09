@@ -9,7 +9,7 @@ class StatGenerator {
 	protected $persons;
 	protected $commitCounts;
 	
-	protected $excludeNames = ['Bamboo TYPO3com'];
+	protected $excludeNames = ['Bamboo TYPO3com', 'TYPO3com'];
 
 	public function __construct($dataDir, $baseDir, $after) {
 		$this->dataDir = $dataDir;
